@@ -1,5 +1,5 @@
-import { Vector3 } from "@babylonjs/core/Maths/math.vector";
 import { Scene } from "react-babylonjs";
+import { Vector3 } from "@babylonjs/core";
 import { Arc } from "models/arc";
 
 const DemoScene = () => {
