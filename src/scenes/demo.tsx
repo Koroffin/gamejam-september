@@ -28,6 +28,8 @@ const DemoScene = () => {
         scale={new Vector3(1, 1, 1)}
         name="arc2"
       />
+        <ground name="ground" width={6} height={6} />
+
     </Scene>
   );
 };

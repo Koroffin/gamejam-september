@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { observer } from "mobx-react-lite";
 import { Engine } from "react-babylonjs";
-import { game } from "./store/game";
+import { game } from "store/game";
 
 export const Scene = observer(() => {
   const { scene } = game;
