@@ -1,5 +1,7 @@
-import { Engine, Scene } from "react-babylonjs";
+import { Scene } from "react-babylonjs";
 import { Vector3 } from "@babylonjs/core";
+
+import TestAssetSrc from "assets/interior/test_asset.glb";
 
 export const SceneWithSpinningBoxes = () => (    
   <Scene>
