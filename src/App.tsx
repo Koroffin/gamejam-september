@@ -1,7 +1,12 @@
+import { AssetManagerContextProvider } from "react-babylonjs";
 import { Scene } from "./Scene";
 
 function App() {
-  return <Scene />;
+  return (
+    <AssetManagerContextProvider>
+      <Scene />
+    </AssetManagerContextProvider>
+  );
 }
 
 export default App;
