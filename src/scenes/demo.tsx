@@ -4,11 +4,11 @@ import { usePhysicsBody } from "hooks/usePhysicsBody";
 import { Arc } from "models/arc";
 
 const DemoScene = () => {
-    const groundRef = useRef<GroundMesh>(null);
-    usePhysicsBody(groundRef, PhysicsShapeType.BOX, {
-        mass: 0,
-        restitution: 0.9,
-    });
+  const groundRef = useRef<GroundMesh>(null);
+  usePhysicsBody(groundRef, PhysicsShapeType.BOX, {
+    mass: 0,
+    restitution: 0.9,
+  });
   return (
     <>
       <arcRotateCamera
@@ -24,28 +24,27 @@ const DemoScene = () => {
         intensity={0.7}
         direction={Vector3.Up()}
       />
-        <Arc
-            position={new Vector3(0, 0, 0)}
-            scale={new Vector3(1, 1, 1)}
-            name="arc2"
-        />
-        <BouncyBox />
-    <ground name="ground" width={6} height={6}>
-    </ground>
-  </>
-);
+      <Arc
+        position={new Vector3(0, 0, 0)}
+        scale={new Vector3(1, 1, 1)}
+        name="arc2"
+      />
+      <BouncyBox />
+      <ground name="ground" width={6} height={6} ref={groundRef}></ground>
+    </>
+  );
 };
 
 const BouncyBox = () => {
-    const boxRef = useRef<Mesh>(null);
-    usePhysicsBody(boxRef, PhysicsShapeType.BOX, {
-        mass: 1,
-        restitution: 0.9,
-    });
+  const boxRef = useRef<Mesh>(null);
+  usePhysicsBody(boxRef, PhysicsShapeType.BOX, {
+    mass: 1,
+    restitution: 0.9,
+  });
 
-    return (
-        <box name="box" size={1} position={new Vector3(0, 5, 0)} ref={boxRef} />
-    );
+  return (
+    <box name="box" size={1} position={new Vector3(0, 5, 0)} ref={boxRef} />
+  );
 };
 
 export default DemoScene;
