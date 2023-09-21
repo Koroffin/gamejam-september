@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "@babylonjs/loaders";
 import { createGlobalStyle } from "styled-components";
 import App from "./App";
+import "@babylonjs/loaders/glTF";
 
 const GlobalStyle = createGlobalStyle`
   * {

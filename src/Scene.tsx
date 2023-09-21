@@ -19,7 +19,9 @@ export const Scene = observer(() => {
     return null;
   }
 
-  return <Engine antialias adaptToDeviceRatio canvasId="babylonJS">
-    <Component />
-  </Engine>;
+  return (
+    <Engine antialias adaptToDeviceRatio canvasId="babylonJS">
+      <Component />
+    </Engine>
+  );
 });
