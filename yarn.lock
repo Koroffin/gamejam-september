@@ -1181,12 +1181,12 @@
     "@babel/helper-validator-identifier" "^7.22.19"
     to-fast-properties "^2.0.0"
 
-"@babylonjs/core@^6.21.0":
+"@babylonjs/core@^6.21.1":
   version "6.21.1"
   resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-6.21.1.tgz#039aceb04873c85f6affdc7f83b25ea01212209a"
   integrity sha512-lBps0vgdVIubdeSuvSR8SHaEexsdfTldew0ZduRE/tGfTzCb7CN9ka73ByMVm9i/sELq6jGV+U5eN8plo1faTA==
 
-"@babylonjs/gui@^6.21.0":
+"@babylonjs/gui@^6.21.1":
   version "6.21.1"
   resolved "https://registry.yarnpkg.com/@babylonjs/gui/-/gui-6.21.1.tgz#2222b7d1879129fdbeffb4c59174e63e73b7a93c"
   integrity sha512-zRxFbzoji2CLz5+zosE5ab8BG3gacTsO4+xWcPdlf7RIBZrPm9Mxq/wCwMnrYLKQXfMty8XP0+svkWBlf6ZEwQ==
