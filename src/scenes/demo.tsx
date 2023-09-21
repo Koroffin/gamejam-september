@@ -1,12 +1,6 @@
-import {
-    GroundMesh,
-    Mesh,
-    PhysicsAggregate,
-    PhysicsShapeType,
-    Vector3,
-} from "@babylonjs/core";
-import { useEffect, useRef } from "react";
-import { useScene } from "react-babylonjs";
+import { GroundMesh, Mesh, PhysicsShapeType, Vector3 } from "@babylonjs/core";
+import { useRef } from "react";
+import { usePhysicsBody } from "hooks/usePhysicsBody";
 import { Arc } from "models/arc";
 
 const DemoScene = () => {
@@ -52,33 +46,6 @@ const BouncyBox = () => {
     return (
         <box name="box" size={1} position={new Vector3(0, 5, 0)} ref={boxRef} />
     );
-};
-
-/**
- * usePhysicsBody hook adds a physics body to a mesh
- */
-export const usePhysicsBody = (
-  mesh: React.MutableRefObject<Mesh | null>,
-  shapeType: PhysicsShapeType,
-  options: {
-    mass: number;
-    restitution: number;
-  },
-) => {
-  const scene = useScene();
-  useEffect(() => {
-    //connect box to physics engine
-    if (!mesh.current || !scene) return;
-    const boxAggregate = new PhysicsAggregate(
-      mesh.current,
-      shapeType,
-      options,
-      scene,
-    );
-    return () => {
-      boxAggregate.dispose();
-    };
-  }, []);
 };
 
 export default DemoScene;
