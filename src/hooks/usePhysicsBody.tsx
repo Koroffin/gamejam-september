@@ -1,6 +1,6 @@
 import { Mesh, PhysicsAggregate, PhysicsShapeType } from "@babylonjs/core";
 import { useScene } from "react-babylonjs";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 /**
  * Adds a physics body to a mesh
@@ -14,6 +14,7 @@ export const usePhysicsBody = (
   },
 ) => {
   const scene = useScene();
+  const physicsRef = useRef<PhysicsAggregate | null>(null);
   useEffect(() => {
     //connect box to physics engine
     if (!mesh.current || !scene) return;
@@ -23,8 +24,10 @@ export const usePhysicsBody = (
       options,
       scene,
     );
+    physicsRef.current = boxAggregate;
     return () => {
       boxAggregate.dispose();
     };
   }, []);
+  return physicsRef;
 };
