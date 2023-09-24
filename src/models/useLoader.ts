@@ -14,10 +14,16 @@ export const useLoader = (meshProps: MeshProps, modelProps: ModelProps) => {
       return;
     }
     meshLoader.load(path, sceneFilename, scene).then((mesh) => {
-      const instance = renderer.render({ mesh, position, scale, name, rotation });
+      const instance = renderer.render({
+        mesh,
+        position,
+        scale,
+        name,
+        rotation,
+      });
       return () => {
         instance.dispose();
-      }
+      };
     });
   }, [scene, position, scale, rotation, name, path, sceneFilename]);
 };

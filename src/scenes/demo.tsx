@@ -1,4 +1,9 @@
-import { GroundMesh, PhysicsShapeType, UniversalCamera, Vector3 } from "@babylonjs/core";
+import {
+  GroundMesh,
+  PhysicsShapeType,
+  UniversalCamera,
+  Vector3,
+} from "@babylonjs/core";
 import { useRef, useMemo } from "react";
 import { usePhysicsBody } from "hooks/usePhysicsBody";
 import { Room as RoomClass } from "store/room";
@@ -20,7 +25,11 @@ const DemoScene = () => {
   }, [room]);
 
   const camera = useCamera((scene) => {
-    return new UniversalCamera("UniversalCamera", new Vector3(-1, 1.5, -3), scene);
+    return new UniversalCamera(
+      "UniversalCamera",
+      new Vector3(-1, 1.5, -3),
+      scene,
+    );
   });
 
   return (
@@ -35,7 +44,7 @@ const DemoScene = () => {
         intensity={0.7}
         direction={Vector3.Up()}
       />
-      
+
       <Room room={room} />
       {neighbors.map((room, index) => (
         <Room key={index} room={room} />

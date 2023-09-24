@@ -21,7 +21,14 @@ class MeshLoader {
           meshArr.push(mesh as Mesh);
           mesh.isVisible = false;
         }
-        const root = Mesh.MergeMeshes(meshArr, true, true, undefined, false, true) as Mesh;
+        const root = Mesh.MergeMeshes(
+          meshArr,
+          true,
+          true,
+          undefined,
+          false,
+          true,
+        ) as Mesh;
         root.isVisible = false;
         this.hash.set(path + sceneFilename, root);
         this.promiseHash.delete(path + sceneFilename);
