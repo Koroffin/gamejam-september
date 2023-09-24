@@ -40,7 +40,7 @@ const DemoScene = () => {
       />
       <BouncyBox />
       <Player />
-      <ground name="ground" width={6} height={6} ref={groundRef}></ground>
+      <ground name="ground" width={6} height={6} ref={groundRef} />
     </>
   );
 };
@@ -127,28 +127,55 @@ const Player = () => {
       const raycast = scene!.pickWithRay(ray, (m) => m !== mesh);
       return raycast?.hit ?? false;
     };
+    const keysPressed = new Set<string>();
     const keyDown = (event: KeyboardEvent) => {
-      // movement uses current rotation to move relative to it
-      const speed = 1;
+      keysPressed.add(event.key.toLowerCase());
+    };
+    const keyUp = (event: KeyboardEvent) => {
+      keysPressed.delete(event.key.toLowerCase());
+    };
+    const dispose2 = scene.onBeforeRenderObservable.add((kbInfo) => {
       if (!onGround()) return;
-      if (event.key === "w") {
-        body.setLinearVelocity(directionVector.scale(speed));
+      const movementVector = new Vector3(0, 0, 0);
+      if (keysPressed.has("w")) {
+        movementVector.addInPlace(directionVector);
       }
-      if (event.key === "s") {
-        body.setLinearVelocity(directionVector.scale(-speed));
+      if (keysPressed.has("s")) {
+        movementVector.subtractInPlace(directionVector);
       }
-      if (event.key === "a") {
-        body.setLinearVelocity(rightVector.scale(-speed));
+      if (keysPressed.has("a")) {
+        movementVector.subtractInPlace(rightVector);
       }
-      if (event.key === "d") {
-        body.setLinearVelocity(rightVector.scale(speed));
+      if (keysPressed.has("d")) {
+        movementVector.addInPlace(rightVector);
       }
-      if (event.key === " ") {
-        body.setLinearVelocity(mesh.up.scale(speed * 3));
+      movementVector.normalize();
+      if (keysPressed.has("shift")) {
+        movementVector.scaleInPlace(2);
+      }
+      if (keysPressed.has(" ")) {
+        movementVector.scaleInPlace(2);
+        movementVector.addInPlace(new Vector3(0, 3, 0));
+      }
+      if (movementVector.length() === 0) {
+        body.setLinearVelocity(new Vector3(0, 0, 0));
+        return;
+      }
+      // movementVector.normalize();
+
+      body.setLinearVelocity(movementVector);
+    });
+    let isLocked = false;
+    const canvas = scene.getEngine().getRenderingCanvas()!;
+    scene.onPointerDown = (e, pickResult) => {
+      if (!isLocked) {
+        canvas.requestPointerLock();
+        isLocked = true;
       }
     };
 
     cameraRef.current?.setTarget(mesh);
+    cameraRef.current?.inputs.attached.mousewheel.detachControl();
     const dispose = cameraRef.current?.onViewMatrixChangedObservable.add(() => {
       const forwardRay = cameraRef.current?.getForwardRay();
       if (!forwardRay) return;
@@ -167,10 +194,13 @@ const Player = () => {
     });
 
     window.addEventListener("keydown", keyDown);
+    window.addEventListener("keyup", keyUp);
     // window.addEventListener("mousemove", mouseMove);
     return () => {
       window.removeEventListener("keydown", keyDown);
+      window.removeEventListener("keyup", keyUp);
       dispose?.remove();
+      dispose2?.remove();
       // window.removeEventListener("mousemove", mouseMove);
     };
   }, []);
@@ -181,6 +211,7 @@ const Player = () => {
         name="player"
         position={new Vector3(0, 0.5, 0)}
         ref={playerRef}
+        visibility={0}
       />{" "}
       <arcRotateCamera
         name="camera1"
@@ -191,6 +222,7 @@ const Player = () => {
         minZ={0.001}
         ref={cameraRef}
         position={new Vector3(0, 0.5, 0)}
+        zoomToMouseLocation={false}
       />
     </>
   );
