@@ -1,4 +1,9 @@
-import { Mesh, PhysicsAggregate, PhysicsShapeType } from "@babylonjs/core";
+import {
+  Mesh,
+  PhysicsAggregate,
+  PhysicsShapeType,
+  PhysicsAggregateParameters,
+} from "@babylonjs/core";
 import { useScene } from "react-babylonjs";
 import { useEffect, useRef } from "react";
 
@@ -8,10 +13,7 @@ import { useEffect, useRef } from "react";
 export const usePhysicsBody = (
   mesh: React.MutableRefObject<Mesh | null>,
   shapeType: PhysicsShapeType,
-  options: {
-    mass: number;
-    restitution: number;
-  },
+  options: PhysicsAggregateParameters,
 ) => {
   const scene = useScene();
   const physicsRef = useRef<PhysicsAggregate | null>(null);
