@@ -48,9 +48,15 @@ const DemoScene = () => {
         <Room key={index} room={room} />
       ))}
 
-      <ground name="ground" width={6} height={6} ref={groundRef}></ground>
       <Player />
-      <ground name="ground" width={6} height={6} ref={groundRef} />
+      <ground
+        visibility={0}
+        name="ground"
+        width={6}
+        height={6}
+        ref={groundRef}
+        position={new Vector3(0, 0.5, 0)}
+      />
     </>
   );
 };

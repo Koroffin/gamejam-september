@@ -165,10 +165,10 @@ export const Player = () => {
     <>
       <capsule
         name="player"
-        position={new Vector3(0, 0.5, 0)}
+        position={new Vector3(0, 2, 0)}
         ref={playerRef}
         visibility={0}
-      />{" "}
+      />
       <arcRotateCamera
         name="camera1"
         alpha={Math.PI / 2}

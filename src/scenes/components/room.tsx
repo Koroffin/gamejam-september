@@ -7,6 +7,7 @@ import { Torch } from "models/torch";
 import { Room as RoomClass } from "store/room";
 
 export const Room = ({ room }: { room: RoomClass }) => {
+  console.log(room);
   return (
     <>
       {room.floorPositions.map((position, index) => (

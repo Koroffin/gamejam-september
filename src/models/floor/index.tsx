@@ -2,6 +2,10 @@ import { ModelProps } from "models/types";
 import { useLoader } from "models/useLoader";
 
 export const Floor = (props: ModelProps) => {
-  useLoader({ path: "./assets/interior/", sceneFilename: "floor.glb" }, props);
+  useLoader(
+    { path: "./assets/interior/", sceneFilename: "floor.glb" },
+    props,
+    true,
+  );
   return null;
 };
