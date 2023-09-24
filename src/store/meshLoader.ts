@@ -15,7 +15,13 @@ class MeshLoader {
     }
     const promise = new Promise<Mesh>((resolve) => {
       SceneLoader.ImportMesh("", path, sceneFilename, scene, (newMeshes) => {
-        const root = newMeshes[1] as Mesh;
+        const meshArr: Mesh[] = [];
+        for (let i = 1; i < newMeshes.length; i++) {
+          const mesh = newMeshes[i];
+          meshArr.push(mesh as Mesh);
+          mesh.isVisible = false;
+        }
+        const root = Mesh.MergeMeshes(meshArr, true, true, undefined, false, true) as Mesh;
         root.isVisible = false;
         this.hash.set(path + sceneFilename, root);
         this.promiseHash.delete(path + sceneFilename);

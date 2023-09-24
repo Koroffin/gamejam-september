@@ -6,7 +6,7 @@ import { MeshProps, ModelProps } from "./types";
 
 export const useLoader = (meshProps: MeshProps, modelProps: ModelProps) => {
   const { path, sceneFilename } = meshProps;
-  const { position, scale, name } = modelProps;
+  const { position, scale, name, rotation } = modelProps;
   const scene = useScene();
 
   useEffect(() => {
@@ -14,7 +14,10 @@ export const useLoader = (meshProps: MeshProps, modelProps: ModelProps) => {
       return;
     }
     meshLoader.load(path, sceneFilename, scene).then((mesh) => {
-      renderer.render({ mesh, position, scale, name });
+      const instance = renderer.render({ mesh, position, scale, name, rotation });
+      return () => {
+        instance.dispose();
+      }
     });
-  }, [scene, position, scale, name, path, sceneFilename]);
+  }, [scene, position, scale, rotation, name, path, sceneFilename]);
 };
