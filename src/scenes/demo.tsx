@@ -1,20 +1,22 @@
 import {
   GroundMesh,
+  Mesh,
+  PhysicsMotionType,
   PhysicsShapeType,
-  UniversalCamera,
   Vector3,
 } from "@babylonjs/core";
-import { useRef, useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { usePhysicsBody } from "hooks/usePhysicsBody";
+import { Arc } from "models/arc";
 import { Room as RoomClass } from "store/room";
-import { useCamera } from "react-babylonjs";
+import { Player } from "Player";
 import { Room } from "./components/room";
 
 const DemoScene = () => {
   const groundRef = useRef<GroundMesh>(null);
-  usePhysicsBody(groundRef, PhysicsShapeType.BOX, {
-    mass: 0,
-    restitution: 0.9,
+  const groundBody = usePhysicsBody(groundRef, PhysicsShapeType.BOX, {
+    mass: 1000,
+    restitution: 0,
   });
 
   const room = useMemo(() => {
@@ -24,14 +26,10 @@ const DemoScene = () => {
     return room.getNeighboringRooms();
   }, [room]);
 
-  const camera = useCamera((scene) => {
-    return new UniversalCamera(
-      "UniversalCamera",
-      new Vector3(-1, 1.5, -3),
-      scene,
-    );
-  });
-
+  useEffect(() => {
+    if (!groundBody.current?.body) return;
+    groundBody.current?.body.setMotionType(PhysicsMotionType.STATIC);
+  }, []);
   return (
     <>
       <hemisphericLight
@@ -51,6 +49,8 @@ const DemoScene = () => {
       ))}
 
       <ground name="ground" width={6} height={6} ref={groundRef}></ground>
+      <Player />
+      <ground name="ground" width={6} height={6} ref={groundRef} />
     </>
   );
 };
